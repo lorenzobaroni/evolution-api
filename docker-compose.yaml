@@ -31,6 +31,21 @@ services:
       resources:
         limits:
           memory: 128M
+  
+  frontend:
+    container_name: evolution_frontend
+    image: atendai/evolution-manager:latest
+    restart: always
+    ports:
+      - "3000:80"
+    environment:
+      - NEXT_PUBLIC_API_URL=https://evolution-api-production-0a7f.up.railway.app
+      - NODE_ENV=production
+      - TZ=America/Sao_Paulo
+    depends_on:
+      - evolution_api
+    networks:
+      - evolution-net
 
 networks:
   evolution-net:
